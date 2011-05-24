@@ -5,11 +5,14 @@
     android:layout_height="fill_parent"
     >
    
+	<!-- 
 	<ImageView android:id="@+id/iv1" android:layout_width="80sp" android:layout_height="60sp" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"/>
 	<ImageView android:id="@+id/iv2" android:layout_width="80sp" android:layout_height="60sp" android:layout_alignParentTop="true" android:layout_centerInParent="true"/>
 	<ImageView android:id="@+id/iv3" android:layout_width="80sp" android:layout_height="60sp" android:layout_alignParentTop="true" android:layout_alignParentRight="true"/>
+	-->
 
-    <TextView android:id="@+id/tvstate"   android:text="Hello World" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/iv3" />
+
+    <TextView android:id="@+id/tvstate" android:text="..." android:layout_width="fill_parent" android:layout_height="wrap_content" />
    
 	<ScrollView android:layout_height="fill_parent" android:layout_width="wrap_content" android:layout_below="@id/tvstate">
 		<TextView  android:id="@+id/tvMain" android:layout_width="fill_parent" android:layout_height="wrap_content"  />

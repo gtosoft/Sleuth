@@ -25,7 +25,7 @@ public class SleuthActivity extends Activity {
 	boolean mThreadsOn 			= true;
 	GeneralStats mgStats    	= new GeneralStats();
 	Handler muiHandler			= new Handler();
-	VoyagerStatusBox mStatusBox = null;
+//	VoyagerStatusBox mStatusBox = null;
 
 	
 	/**
@@ -35,7 +35,6 @@ public class SleuthActivity extends Activity {
 		mThreadsOn = false;
 		if (ddb != null) 		ddb.shutdown();
 		if (hs  != null) 		hs.shutdown();
-		if (mStatusBox != null) mStatusBox.shutdown();
 		
 	}
 
@@ -66,13 +65,13 @@ public class SleuthActivity extends Activity {
         
         setContentView(R.layout.main);
 
-        mStatusBox = new VoyagerStatusBox(SleuthActivity.this, R.id.iv1, R.id.iv2, R.id.iv3, R.id.tvstate);   
+//        mStatusBox = new VoyagerStatusBox(SleuthActivity.this, R.id.iv1, R.id.iv2, R.id.iv3, R.id.tvstate);   
         
         maHelper = new ActivityHelper(this);
         
         maHelper.registerChosenDeviceCallback(chosenCallback);
         maHelper.startDiscovering();
-		mStatusBox.setStatusLevel("Searching for device...", 1);
+//		mStatusBox.setStatusLevel("Searching for device...", 1);
 
         
     }
@@ -124,7 +123,7 @@ public class SleuthActivity extends Activity {
   		  msg  ("DashDB Ready.");
   	  }
 
-  	  mStatusBox.setStatusLevel("Connecting to " + deviceMACAddress, 2);
+//  	  mStatusBox.setStatusLevel("Connecting to " + deviceMACAddress, 2);
   	  hs = new HybridSession (BluetoothAdapter.getDefaultAdapter(), deviceMACAddress, ddb, ecbOOBMessageHandler);
   	  // register a method to be called when new data arrives. 
   	  hs.registerDPArrivedCallback(ecbDPNArrivedHandler);
@@ -159,7 +158,7 @@ public class SleuthActivity extends Activity {
     					// run session detection if necessary. 
     					if (hardwareDetected == false && hs.getEBT().isConnected() == true) { 
         					dumpStatsToScreen();
-        					mStatusBox.setStatusLevel("Checking Hardware Type", 4);
+//        					mStatusBox.setStatusLevel("Checking Hardware Type", 4);
     						hardwareDetected = detectSessionAndStartSniffing();
         					dumpStatsToScreen();
     						if (hardwareDetected != true) {
@@ -168,7 +167,7 @@ public class SleuthActivity extends Activity {
     							continue; 
     						} else {
     							// hardware detection was successful.
-    							mStatusBox.setStatusLevel("Detected!", 5);
+//    							mStatusBox.setStatusLevel("Detected!", 5);
 
     						}
     					}
@@ -265,9 +264,9 @@ public class SleuthActivity extends Activity {
 				}
 				
 				if (newState > 0) {
-					mStatusBox.setStatusLevel("Bluetooth Connected", 3);
+//					mStatusBox.setStatusLevel("Bluetooth Connected", 3);
 				} else {
-					mStatusBox.setStatusLevel("Bluetooth Disconnected", 2);
+//					mStatusBox.setStatusLevel("Bluetooth Disconnected", 2);
 				}
 				
 			}// end of "if this was a io state change". 
