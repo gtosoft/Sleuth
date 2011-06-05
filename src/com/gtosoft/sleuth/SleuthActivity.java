@@ -68,7 +68,6 @@ public class SleuthActivity extends Activity {
 //        mStatusBox = new VoyagerStatusBox(SleuthActivity.this, R.id.iv1, R.id.iv2, R.id.iv3, R.id.tvstate);   
         
         maHelper = new ActivityHelper(this);
-        
         maHelper.registerChosenDeviceCallback(chosenCallback);
         maHelper.startDiscovering();
 //		mStatusBox.setStatusLevel("Searching for device...", 1);
