@@ -5,33 +5,29 @@
     android:layout_height="fill_parent"
     >
    
-	<!-- 
-	<ImageView android:id="@+id/iv1" android:layout_width="80sp" android:layout_height="60sp" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"/>
-	<ImageView android:id="@+id/iv2" android:layout_width="80sp" android:layout_height="60sp" android:layout_alignParentTop="true" android:layout_centerInParent="true"/>
-	<ImageView android:id="@+id/iv3" android:layout_width="80sp" android:layout_height="60sp" android:layout_alignParentTop="true" android:layout_alignParentRight="true"/>
-	-->
-
     <Button android:id="@+id/btnLock" 
-    	android:layout_width="wrap_content" 
-    	android:layout_height="wrap_content" 
     	android:background="@drawable/web20buttonbackground" 
     	android:layout_alignParentTop="true" 
     	android:layout_alignParentLeft="true" 
     	android:text="LOCK" 
-    	android:padding="5sp"/>
+    	android:padding="5sp" android:layout_width="100sp" android:layout_height="40sp"/>
     	
     <Button android:id="@+id/btnUnLock" 
-	    android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content" 
 	    android:layout_toRightOf="@id/btnLock"
 	    android:background="@drawable/web20buttonbackground" 
 	    android:text="UNLOCK" 
-	    android:padding="5sp"/>
+	    android:padding="5sp" android:layout_width="100sp" android:layout_height="40sp"/>
+
+    <Button android:id="@+id/btnWake" 
+	    android:layout_toRightOf="@id/btnUnLock"
+	    android:background="@drawable/web20buttonbackground" 
+	    android:text="WAKE UP"
+	    android:padding="5sp" android:layout_width="100sp" android:layout_height="40sp"/>
 
     <TextView android:id="@+id/tvstate" android:text="tvstate" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/btnUnLock"/>
    
 	<ScrollView android:layout_height="fill_parent" android:layout_width="wrap_content" android:layout_below="@id/tvstate">
-		<TextView  android:id="@+id/tvMain" android:text="tvMain" android:layout_width="fill_parent" android:layout_height="wrap_content"  />
+		<TextView  android:id="@+id/tvMain" android:text="tvMain" android:layout_width="fill_parent" android:layout_height="wrap_content" />
     </ScrollView>
      
 </RelativeLayout>
