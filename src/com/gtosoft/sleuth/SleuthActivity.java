@@ -163,8 +163,8 @@ public class SleuthActivity extends Activity {
     			while (mThreadsOn == true) {
     				loops++;
     				mgStats.setStat("loops", "" + loops);
-    				// moved this to the top of the loop so that we can run a "continue" and not cause a tight loop. 
-    				EasyTime.safeSleep(1000);
+    				// moved this to the top of the loop so that we can run a "continue" and not cause a runaway loop. 
+    				EasyTime.safeSleep(5000);
     				
     				// when hs goes from null to defined, that means a device was discovered. 
     				if (hs != null) {
