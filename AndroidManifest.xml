@@ -11,7 +11,7 @@
    	<!--  Needed to look up DTC descriptions! -->
 	<uses-permission android:name="android.permission.INTERNET" />
       
-   	<!--  Needed to Write database backup to external storage. -->
+   	<!--  Needed to Write database backup (and replaylog) to external storage. -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 
