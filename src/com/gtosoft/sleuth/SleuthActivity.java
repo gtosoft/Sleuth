@@ -23,6 +23,8 @@ import com.gtosoft.libvoyager.util.OOBMessageTypes;
 
 public class SleuthActivity extends Activity {
 
+	private static final boolean DEBUG = true;
+	
 	String mBTPeerMAC = "";
 	ActivityHelper maHelper = null;
 	HybridSession hs = null;
@@ -34,7 +36,9 @@ public class SleuthActivity extends Activity {
 
 	Button btnLock;
 	Button btnUnlock;
-	Button btnWake;
+	Button btnStarter;
+	Button btnDriverSeat;
+	
 
 	TextView tvMain;
 
@@ -79,7 +83,8 @@ public class SleuthActivity extends Activity {
 		btnLock = (Button) findViewById(R.id.btnLock);
 		btnUnlock = (Button) findViewById(R.id.btnUnLock);
 		tvMain = (TextView) findViewById(R.id.tvMain);
-		btnWake = (Button) findViewById(R.id.btnWake);
+		btnStarter = (Button) findViewById(R.id.btnStarter);
+		btnDriverSeat = (Button) findViewById(R.id.btnDriverSeat);
 		
 		setButtonEventHandlers();
 
@@ -136,8 +141,7 @@ public class SleuthActivity extends Activity {
 		// Make sure we aren't threading out into more than one device. we can't
 		// presently handle multiple OBD devices at once.
 		if (hs != null) {
-			msg("Multiple OBD devices detected. throwing out "
-					+ deviceMACAddress);
+			msg("Multiple OBD devices detected. throwing out " + deviceMACAddress);
 			return false;
 		}
 
@@ -145,6 +149,7 @@ public class SleuthActivity extends Activity {
 		if (ddb == null) {
 			// msg ("Spinning up DashDB...");
 			ddb = new DashDB(this);
+			ddb.backupDB("Sleuth-startup");
 			// msg ("DashDB Ready.");
 		}
 
@@ -155,6 +160,7 @@ public class SleuthActivity extends Activity {
 
 
 		startDataCollectorLoop();
+		
 
 		mBTPeerMAC = deviceMACAddress;
 
@@ -213,8 +219,7 @@ public class SleuthActivity extends Activity {
 							}
 						}
 					} else {
-						// hybrid session not defined or session still being
-						// detected. do nothing / Sleep longer?
+						// before or after monitor session. Maybe user will press buttons on the screen....
 					}
 
 				}// end of main while loop.
@@ -339,6 +344,12 @@ public class SleuthActivity extends Activity {
 					// do auto session detection stuff!
 					if (hs.isDetectionValid() != true) {
 						msg("Running hardware/network detect...");
+
+						// for testing: dump out a copy of the database. 
+						if (DEBUG) {
+							hs.getDashDB().backupDB("sleuth");
+						}
+
 						boolean ret = hs.runSessionDetection();
 						msg("Hardware/network results: " + ret);
 					} else {
@@ -425,53 +436,60 @@ public class SleuthActivity extends Activity {
 		}
 
 		// lock the doors.
-		btnLock.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				doCommand("FOB_LOCK");
-			}// end of OnClick
-		}); // end of setOnclickListener
+		setButtonCommand(btnLock, "FOB_LOCK");
 
 		// unlock the doors.
-		btnUnlock.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				doCommand ("FOB_UNLOCK");
-			}// end of onclick.
-		}); // end of setonclicklistener.
+		setButtonCommand(btnUnlock, "FOB_UNLOCK");
+		
+		// Remote start the car. 
+		setButtonCommand(btnStarter, "FOB_STARTER");
+		
+		// driver side heated seat actuator. 
+		setButtonCommand(btnDriverSeat, "HEAT_SEAT_DRIVER");
 
-		// wake up the network. 
-		btnWake.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				doWakeup();
-			}// end of onClick
-		});// end of setonclicklistener
+			
 		
 		
 		return true;
 	}// end of setOnButtonEventHandlers.
+	
+	private void setButtonCommand (Button b, final String command) {
+		
+		// sanity checks
+		if (b == null) return;
+		
+		// set the button click listener. 
+		b.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				doCommand (command);
+			}// end of onclick.
+		}); // end of setonclicklistener.
+		
+	}
 
 	private boolean doCommand (String cmdName) {
-		msg ("Commands are disabled for now. Data-collection only.");
-		return true;
-/*
+//		msg ("Commands are disabled for now. Data-collection only.");
+//		return true;
+
 		if (hs.isHardwareSWCAN() != true) {
 			msg("WARANING: hardware may not be SWCAN");
 		}
 
 		if (hs.getCurrentSessionType() != HybridSession.SESSION_TYPE_COMMAND) {
-			msg("Switching to command session (");
+			msg("Switching to command session...");
 			hs.setActiveSession(HybridSession.SESSION_TYPE_COMMAND);
+			msg("Command session now active. ");
 		}
 
 		if (hs.getCommandSession() == null) {
 			msg("Command session not set up yet. ");
 			return false;
 		}
-		msg("Sending UNLock command");
+		msg("Sending command: " + cmdName);
 		hs.getCommandSession().sendCommand(cmdName);
 		
 		return true;
-*/
+
 	}
 
 	private void doWakeup () {

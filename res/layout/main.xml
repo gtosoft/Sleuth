@@ -13,15 +13,21 @@
     	android:padding="5sp" android:layout_width="100sp" android:layout_height="40sp"/>
     	
     <Button android:id="@+id/btnUnLock" 
-	    android:layout_toRightOf="@id/btnLock"
+	    android:layout_below="@id/btnLock"
 	    android:background="@drawable/web20buttonbackground" 
 	    android:text="UNLOCK" 
 	    android:padding="5sp" android:layout_width="100sp" android:layout_height="40sp"/>
 
-    <Button android:id="@+id/btnWake" 
-	    android:layout_toRightOf="@id/btnUnLock"
+    <Button android:id="@+id/btnStarter" 
+	    android:layout_toRightOf="@id/btnLock"
 	    android:background="@drawable/web20buttonbackground" 
-	    android:text="WAKE UP"
+	    android:text="Rem Start"
+	    android:padding="5sp" android:layout_width="100sp" android:layout_height="40sp"/>
+
+    <Button android:id="@+id/btnDriverSeat" 
+	    android:layout_toRightOf="@id/btnStarter"
+	    android:background="@drawable/web20buttonbackground" 
+	    android:text="Seat Heater"
 	    android:padding="5sp" android:layout_width="100sp" android:layout_height="40sp"/>
 
     <TextView android:id="@+id/tvstate" android:text="tvstate" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/btnUnLock"/>
