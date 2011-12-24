@@ -6,6 +6,9 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -447,11 +450,27 @@ public class SleuthActivity extends Activity {
 		// driver side heated seat actuator. 
 		setButtonCommand(btnDriverSeat, "HEAT_SEAT_DRIVER");
 
-			
 		
 		
 		return true;
 	}// end of setOnButtonEventHandlers.
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuItem itemSwitchToMoni = menu.add("Switch To Monitor");
+		itemSwitchToMoni.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				if (hs != null) {
+					hs.setActiveSession(HybridSession.SESSION_TYPE_MONITOR);
+				}
+				return true;
+			}
+		});
+		
+		return true;
+	}
 	
 	private void setButtonCommand (Button b, final String command) {
 		
